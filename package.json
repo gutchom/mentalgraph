@@ -1,0 +1,165 @@
+{
+  "name": "super-game",
+  "version": "1.0.0",
+  "description": "Health cycle recorder",
+  "main": "index.js",
+  "author": "gutchom",
+  "license": "MIT",
+  "homepage": "https://health-meter.gutchom.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gutchom/health-meter"
+  },
+  "bugs": {
+    "url": "https://github.com/gutchom/health-meter/issues"
+  },
+  "engines": {
+    "node": "^12.14.0",
+    "npm": "^6.13.4"
+  },
+  "scripts": {
+    "start": "cross-env NODE_ENV=development run-p -s count dev:**",
+    "test": "cross-env NODE_ENV=test ts-jest",
+    "testing": "npm t -- --watch",
+    "lint": "run-s lint:*",
+    "lint:css": "stylelint 'src/app/components/**/*.tsx' --fix",
+    "lint:js": "tslint -p tsconfig.json --fix ./src/**/*.ts*",
+    "dev:js": "webpack --mode=development --progress --watch",
+    "dev:css": "postcss ./src/styles/pages/**/*.css -b ./src/styles/pages -d ./dist/css -w",
+    "dev:img": "cpx ./src/images/**/* ./dist/img -w",
+    "dev:server:mock": "cross-env PORT=3000 nodemon -w ./server ./server",
+    "dev:server:sync": "browser-sync start -f ./dist -p localhost:3000 --port 3333",
+    "build": "cross-env NODE_ENV=production run-s lint test clean build:**",
+    "build:js": "webpack --mode=production --progress",
+    "build:css": "postcss ./src/styles/pages/**/*.css -b ./src/styles/pages -d ./dist/css",
+    "build:img": "cpx ./src/images/**/* ./public/img",
+    "clean": "rimraf ./public/* && mkdir ./public ./public/js ./dist/img",
+    "count": "printf '\\e[36m\n  This project has\\e[35m %s lines\\e[36m of source code!\n\n\\e[m' $(find ./src -name '*.ts*' -o -name '*.css' | xargs wc -l | tail -1 | awk '{print $1}')",
+    "check": "npm-check -u"
+  },
+  "dependencies": {
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.3",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@babel/preset-react": "^7.8.3",
+    "@babel/runtime": "^7.8.3",
+    "@types/enzyme": "^3.10.4",
+    "@types/jest": "^24.9.1",
+    "@types/node": "^13.5.0",
+    "@types/power-assert": "^1.5.3",
+    "@types/react": "^16.9.19",
+    "@types/react-dom": "^16.9.5",
+    "@typescript-eslint/eslint-plugin": "^2.17.0",
+    "@typescript-eslint/parser": "^2.17.0",
+    "babel-jest": "^25.1.0",
+    "babel-loader": "^8.0.6",
+    "babel-preset-power-assert": "^3.0.0",
+    "body-parser": "^1.19.0",
+    "browser-sync": "^2.26.7",
+    "caniuse-lite": "^1.0.30001023",
+    "case-sensitive-paths-webpack-plugin": "^2.3.0",
+    "colors": "^1.4.0",
+    "cpx": "^1.5.0",
+    "cross-env": "^6.0.3",
+    "cssnano": "^4.1.10",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "eslint": "^6.8.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-react": "^7.18.0",
+    "eslint-plugin-standard": "^4.0.1",
+    "express": "^4.17.1",
+    "git-pre-push": "0.0.5",
+    "glob": "^7.1.6",
+    "jest": "^25.1.0",
+    "nodemon": "^2.0.2",
+    "npm-check": "^5.9.0",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^7.0.26",
+    "postcss-browser-reporter": "^0.6.0",
+    "postcss-cli": "^7.1.0",
+    "postcss-import": "^12.0.1",
+    "postcss-preset-env": "^6.7.0",
+    "postcss-reporter": "^6.0.1",
+    "power-assert": "^1.6.1",
+    "pre-commit": "^1.2.2",
+    "pug": "^2.0.4",
+    "react-test-renderer": "^16.12.0",
+    "rimraf": "^3.0.0",
+    "stylelint": "^13.0.0",
+    "stylelint-config-standard": "^19.0.0",
+    "stylelint-order": "^4.0.0",
+    "ts-jest": "^25.0.0",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.5",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
+  },
+  "pre-commit": [
+    "lint"
+  ],
+  "pre-push": [
+    "test"
+  ],
+  "babel": {
+    "presets": [
+      "@babel/env",
+      "@babel/react"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
+    ],
+    "env": {
+      "test": {
+        "presets": [
+          "@babel/typescript",
+          "power-assert"
+        ]
+      }
+    }
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "plugins": [
+      "@typescript-eslint",
+      "babel",
+      "react",
+      "standard"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "env": {
+      "es6": true,
+      "node": true
+    },
+    "rules": {
+      "@typescript-eslint/adjacent-overload-signatures": "error"
+    }
+  },
+  "stylelint": {
+    "extends": "stylelint-config-standard",
+    "plugins": [
+      "stylelint-order"
+    ],
+    "rules": {
+      "order/properties-alphabetical-order": true,
+      "order/order": [
+        "custom-properties",
+        "declarations"
+      ]
+    }
+  }
+}
