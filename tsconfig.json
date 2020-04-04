@@ -4,6 +4,7 @@
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
+    "lib": ["dom", "es2017"],
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "noImplicitAny": true,

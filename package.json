@@ -26,13 +26,15 @@
     "lint:js": "tslint -p tsconfig.json --fix ./src/**/*.ts*",
     "dev:js": "webpack --mode=development --progress --watch",
     "dev:css": "postcss ./src/styles/pages/**/*.css -b ./src/styles/pages -d ./dist/css -w",
-    "dev:img": "cpx ./src/images/**/* ./dist/img -w",
+    "dev:img": "cpx './src/images/**/*' ./dist/img -w",
+    "dev:assets": "cpx './src/assets/**/*' ./dist -w",
     "dev:server:mock": "cross-env PORT=3000 nodemon -w ./server ./server",
     "dev:server:sync": "browser-sync start -f ./dist -p localhost:3000 --port 3333",
     "build": "cross-env NODE_ENV=production run-s lint test clean build:**",
     "build:js": "webpack --mode=production --progress",
     "build:css": "postcss ./src/styles/pages/**/*.css -b ./src/styles/pages -d ./dist/css",
-    "build:img": "cpx ./src/images/**/* ./public/img",
+    "build:img": "cpx './src/images/**/*' './public/img'",
+    "build:assets": "cpx './src/assets/**/*' './public'",
     "clean": "rimraf ./public/* && mkdir ./public ./public/js ./dist/img",
     "count": "printf '\\e[36m\n  This project has\\e[35m %s lines\\e[36m of source code!\n\n\\e[m' $(find ./src -name '*.ts*' -o -name '*.css' | xargs wc -l | tail -1 | awk '{print $1}')",
     "check": "npm-check -u"
@@ -146,7 +148,9 @@
       "node": true
     },
     "rules": {
-      "@typescript-eslint/adjacent-overload-signatures": "error"
+      "@typescript-eslint/adjacent-overload-signatures": "error",
+      "react/prop-types": 0,
+      "no-undef": "off"
     }
   },
   "stylelint": {

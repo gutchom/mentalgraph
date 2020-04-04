@@ -1,7 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Questionnaire } from 'app/components/pages/Questionnaire'
 
 ReactDOM.render(
-  <h1>Hello, world!</h1>,
+  <Questionnaire/>,
   document.getElementById('app-main')
 )

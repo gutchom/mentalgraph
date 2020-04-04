@@ -1,0 +1,94 @@
+@import "../commons/variables.css";
+
+:root {
+  --modal-padding: 4vw;
+  --modal-bar-height: 3em;
+}
+
+.modal {
+  background: rgba(0, 0, 0, 0);
+  display: block;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  transition: var(--duration) background;
+  visibility: hidden;
+  width: 100%;
+  z-index: 9999;
+
+  &.modal--visible {
+    background: rgba(0, 0, 0, 0.3);
+    visibility: visible;
+
+    & .modal--window {
+      transform: scale(1);
+    }
+  }
+
+  & .modal--window {
+    background: #fff;
+    border-radius: var(--radius-small);
+    bottom: var(--modal-padding);
+    box-shadow: 0 0 10px 0 #333;
+    left: var(--modal-padding);
+    position: absolute;
+    right: var(--modal-padding);
+    top: var(--modal-padding);
+    transform: scale(0);
+    transition: var(--duration-slow) var(--easing-in-out-back);
+  }
+
+  & .modal--close {
+    background: #444;
+    border-radius: 50%;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+    height: 24px;
+    position: fixed;
+    right: calc(24px * -0.5);
+    text-align: center;
+    top: calc(24px * -0.5);
+    width: 24px;
+    z-index: 5;
+  }
+
+  & .modal--content {
+    border-radius: inherit;
+    bottom: 0;
+    -webkit-overflow-scrolling: touch;
+    overflow-y: scroll;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+
+  & header,
+  & footer {
+    box-sizing: border-box;
+    height: var(--modal-bar-height);
+    position: absolute;
+    width: 100%;
+  }
+
+  & header {
+    border-radius: var(--radius-small) var(--radius-small) 0 0;
+    top: 0;
+  }
+
+  & footer {
+    border-radius: 0 0 var(--radius-small) var(--radius-small);
+    bottom: 0;
+    z-index: 1;
+  }
+
+  & header ~ .modal--content {
+    top: var(--modal-bar-height);
+  }
+
+  & footer ~ .modal--content {
+    bottom: var(--modal-bar-height);
+  }
+}

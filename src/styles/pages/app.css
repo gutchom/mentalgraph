@@ -1,0 +1,158 @@
+@import "../commons/reset.css";
+@import "../commons/layouts/header.css";
+@import "../commons/variables.css";
+@import "../modules/modal.css";
+
+:root {
+  --query-input-width: 96%;
+  --query-input-base-width: 320px;
+}
+
+@keyframes choochootrain {
+  0% {
+    transform: skew(0deg) scale(1) translate(0);
+  }
+  25% {
+    transform: skew(120deg) scale(0.5) translate(125%, 0);
+  }
+  75% {
+    transform: skew(0deg) scale(1) translate(0);
+  }
+  100% {
+    transform: skew(40deg) scale(1.5) translate(-125%, 0);
+  }
+}
+
+.question {
+  border: none;
+
+  & legend {
+    font-weight: bold;
+  }
+
+  & h2 {
+    text-align: center;
+  }
+
+  & ul {
+    display: flex;
+
+    & li {
+      flex: 1 1 auto;
+
+      /* just joking */
+
+      animation-duration: 1200ms;
+      animation-iteration-count: infinite;
+      animation-name: choochootrain;
+
+      &:nth-child(1) {
+        animation-delay: 0ms;
+      }
+
+      &:nth-child(2) {
+        animation-delay: 300ms;
+      }
+
+      &:nth-child(3) {
+        animation-delay: 600ms;
+      }
+
+      &:nth-child(4) {
+        animation-delay: 900ms;
+      }
+
+      &:nth-child(5) {
+        animation-delay: 1200ms;
+      }
+
+      & div {
+        background: #000;
+        border-radius: 50%;
+        color: #fff;
+        font-size: 0;
+        height: 64px;
+        position: relative;
+        text-align: center;
+        width: 64px;
+
+        & i {
+          font-size: 32px;
+          line-height: 48px;
+        }
+
+        &::after {
+          background: #888;
+          border-radius: 5px;
+          content: '';
+          display: block;
+          height: 10px;
+          margin: auto;
+          width: 10px;
+        }
+      }
+
+
+      & input:checked ~ div::after {
+        background: #4f8;
+      }
+    }
+  }
+
+  &.weather ul li div::after {
+    width: 32px;
+  }
+}
+
+.question.meals {
+  & span {
+    display: block;
+    font-size: 36px;
+    line-height: 36px;
+    padding: 12px;
+  }
+
+  & button {
+    background: #000;
+    border-radius: 50%;
+    color: #fff;
+    display: block;
+    font-size: 24px;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    width: 36px;
+  }
+
+  & .container {
+    display: flex;
+    justify-content: center;
+
+    & * {
+      align-self: center;
+    }
+  }
+}
+
+.question.time {
+  & input {
+    border: 2px solid #000;
+    border-radius: 6px;
+    height: 32px;
+    text-align: center;
+    width: 32px;
+  }
+
+  & .container {
+    display: flex;
+    justify-content: center;
+
+    & * {
+      align-self: center;
+      display: block;
+      font-size: 24px;
+      font-weight: bold;
+      margin: 4px;
+    }
+  }
+}
