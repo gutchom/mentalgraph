@@ -8,21 +8,6 @@
   --query-input-base-width: 320px;
 }
 
-@keyframes choochootrain {
-  0% {
-    transform: skew(0deg) scale(1) translate(0);
-  }
-  25% {
-    transform: skew(120deg) scale(0.5) translate(125%, 0);
-  }
-  75% {
-    transform: skew(0deg) scale(1) translate(0);
-  }
-  100% {
-    transform: skew(40deg) scale(1.5) translate(-125%, 0);
-  }
-}
-
 .question {
   border: none;
 
@@ -39,32 +24,6 @@
 
     & li {
       flex: 1 1 auto;
-
-      /* just joking */
-
-      animation-duration: 1200ms;
-      animation-iteration-count: infinite;
-      animation-name: choochootrain;
-
-      &:nth-child(1) {
-        animation-delay: 0ms;
-      }
-
-      &:nth-child(2) {
-        animation-delay: 300ms;
-      }
-
-      &:nth-child(3) {
-        animation-delay: 600ms;
-      }
-
-      &:nth-child(4) {
-        animation-delay: 900ms;
-      }
-
-      &:nth-child(5) {
-        animation-delay: 1200ms;
-      }
 
       & div {
         background: #000;
@@ -91,7 +50,6 @@
           width: 10px;
         }
       }
-
 
       & input:checked ~ div::after {
         background: #4f8;
