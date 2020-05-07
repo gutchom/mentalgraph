@@ -1,17 +1,17 @@
 {
   "name": "super-game",
   "version": "1.0.0",
-  "description": "Health cycle recorder",
+  "description": "A mental health logger.",
   "main": "index.js",
   "author": "gutchom",
   "license": "MIT",
-  "homepage": "https://health-meter.gutchom.com",
+  "homepage": "https://mentalgraph.gutchom.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gutchom/health-meter"
+    "url": "git@github.com:gutchom/mentalgraph.git"
   },
   "bugs": {
-    "url": "https://github.com/gutchom/health-meter/issues"
+    "url": "https://github.com/gutchom/mentalgraph/issues"
   },
   "engines": {
     "node": "^12.14.0",
@@ -23,19 +23,19 @@
     "testing": "npm t -- --watch",
     "lint": "run-s lint:*",
     "lint:css": "stylelint 'src/app/components/**/*.tsx' --fix",
-    "lint:js": "tslint -p tsconfig.json --fix ./src/**/*.ts*",
+    "lint:js": "eslint ./src/**/*.ts*",
     "dev:js": "webpack --mode=development --progress --watch",
-    "dev:css": "postcss ./src/styles/pages/**/*.css -b ./src/styles/pages -d ./dist/css -w",
-    "dev:img": "cpx './src/images/**/*' ./dist/img -w",
-    "dev:assets": "cpx './src/assets/**/*' ./dist -w",
-    "dev:server:mock": "cross-env PORT=3000 nodemon -w ./server ./server",
-    "dev:server:sync": "browser-sync start -f ./dist -p localhost:3000 --port 3333",
+    "dev:css": "postcss ./src/styles/pages/**/*.css -b ./src/styles/pages -d ./public/css -w",
+    "dev:img": "cpx './src/images/**/*' ./public/img -w",
+    "dev:assets": "cpx './src/assets/**/*' ./public -w",
+    "dev:serve": "cd ./functions && npm run serve",
+    "dev:serve:sync": "browser-sync start -b 'GoogleChrome' -f ./public -p localhost:5000 --port 3333",
     "build": "cross-env NODE_ENV=production run-s lint test clean build:**",
     "build:js": "webpack --mode=production --progress",
-    "build:css": "postcss ./src/styles/pages/**/*.css -b ./src/styles/pages -d ./dist/css",
+    "build:css": "postcss ./src/styles/pages/**/*.css -b ./src/styles/pages -d ./public/css",
     "build:img": "cpx './src/images/**/*' './public/img'",
     "build:assets": "cpx './src/assets/**/*' './public'",
-    "clean": "rimraf ./public/* && mkdir ./public ./public/js ./dist/img",
+    "clean": "rimraf ./public/* && mkdir ./public/js ./public/img",
     "count": "printf '\\e[36m\n  This project has\\e[35m %s lines\\e[36m of source code!\n\n\\e[m' $(find ./src -name '*.ts*' -o -name '*.css' | xargs wc -l | tail -1 | awk '{print $1}')",
     "check": "npm-check -u"
   },
