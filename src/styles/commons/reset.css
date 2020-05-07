@@ -2,6 +2,7 @@ html,
 body {
   font-family: "ヒラギノ角ゴシック Pro", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
   height: 100%;
+  margin: 0;
 }
 
 h1,

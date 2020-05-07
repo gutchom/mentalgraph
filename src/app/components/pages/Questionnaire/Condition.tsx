@@ -6,7 +6,7 @@ export const Condition: React.FC = () => {
 
   return (
     <fieldset className="question condition">
-      <legend>体調</legend>
+      <legend>調子</legend>
       <ul>
         <li>
           <label>

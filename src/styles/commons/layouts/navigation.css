@@ -1,0 +1,71 @@
+@import "../variables.css";
+
+:root {
+  --toggle-button-size: 56px;
+  --menu-button-size: 48px
+}
+
+.navigation-toggle {
+  background: var(--color-main);
+  border-radius: 50%;
+  box-shadow: 0 0 10px 0 #aaa;
+  color: #fff;
+  font-size: calc(var(--toggle-button-size) / 2);
+  line-height: var(--toggle-button-size);
+  text-align: center;
+  height: var(--toggle-button-size);
+  width: var(--toggle-button-size);
+}
+
+.navigation-container {
+  bottom: 3vh;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  width: 100%;
+
+  & ul {
+    position: absolute;
+
+    & li {
+      position: absolute;
+      background: #fff;
+      border: 3px solid var(--color-main);
+      border-radius: 50%;
+      box-shadow: 0 0 10px 0 #aaa;
+      font-size: calc(var(--menu-button-size) / 2);
+      line-height: var(--menu-button-size);
+      height: var(--menu-button-size);
+      text-align: center;
+      width: var(--menu-button-size);
+      transform: scale(0);
+      transition: transform var(--duration-slow) var(--easing-in-out-back);
+      visibility: hidden;
+
+      &.--open {
+        visibility: visible;
+        transform: scale(1);
+      }
+
+      & a,
+      & a:visited,
+      & a:focus {
+        color: var(--color-main);
+      }
+
+      &:nth-child(1) {
+        right: calc(var(--toggle-button-size) + 8px);
+      }
+      &:nth-child(2) {
+        bottom: 8px;
+        right: 0;
+      }
+      &:nth-child(3) {
+        left: 8px;
+      }
+      &:nth-child(4) {
+        display: none;
+      }
+    }
+  }
+}

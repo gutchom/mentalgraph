@@ -6,7 +6,7 @@ export type HeaderProps = {
 
 export const Header: React.FC<HeaderProps> = props => {
   return (
-    <header>
+    <header className="global-header">
       <h1>{props.title}</h1>
     </header>
   )

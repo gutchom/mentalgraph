@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Questionnaire } from 'app/components/pages/Questionnaire'
+import { App } from 'app/App.tsx'
 
 ReactDOM.render(
-  <Questionnaire/>,
+  <App/>,
   document.getElementById('app-main')
 )

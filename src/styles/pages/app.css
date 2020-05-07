@@ -1,11 +1,16 @@
 @import "../commons/reset.css";
 @import "../commons/layouts/header.css";
+@import "../commons/layouts/navigation.css";
 @import "../commons/variables.css";
 @import "../modules/modal.css";
 
 :root {
   --query-input-width: 96%;
   --query-input-base-width: 320px;
+}
+
+main {
+  height: calc(100vh + 32px);
 }
 
 .question {

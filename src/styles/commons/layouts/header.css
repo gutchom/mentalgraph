@@ -1,9 +1,12 @@
+@import "../variables.css";
+
 main {
   & > header {
-    background: #39c9d8;
+    background: var(--color-main);
     color: #fff;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 8px;
     padding: 8px 12px;
     z-index: 8000;
 
