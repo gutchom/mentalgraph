@@ -30,10 +30,26 @@ main {
     & li {
       flex: 1 1 auto;
 
+      &:nth-child(1) input:checked ~ div {
+        color: #4184e2;
+      }
+      &:nth-child(2) input:checked ~ div {
+        color: #6da0e9;
+      }
+      &:nth-child(3) input:checked ~ div {
+        color: #3ae478;
+      }
+      &:nth-child(4) input:checked ~ div {
+        color: #f0ba72;
+      }
+      &:nth-child(5) input:checked ~ div {
+        color: #f05768;
+      }
+
       & div {
         background: #000;
         border-radius: 50%;
-        color: #fff;
+        color: #ddd;
         font-size: 0;
         height: 64px;
         position: relative;
@@ -62,6 +78,27 @@ main {
     }
   }
 
+  &.weather li {
+    &:nth-child(1) input:checked ~ div {
+      color: #ff944c;
+    }
+
+    &:nth-child(2) input:checked ~ div {
+      color: #fff;
+    }
+
+    &:nth-child(3) input:checked ~ div {
+      color: #4184e2;
+    }
+
+    &:nth-child(4) input:checked ~ div {
+      color: #f0ba72;
+    }
+
+    &:nth-child(5) input:checked ~ div {
+      color: #bae3ff;
+    }
+  }
   &.weather ul li div::after {
     width: 32px;
   }
