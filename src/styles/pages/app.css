@@ -31,13 +31,13 @@ main {
       flex: 1 1 auto;
 
       &:nth-child(1) input:checked ~ div {
-        color: #4184e2;
+        color: #4b6fdb;
       }
       &:nth-child(2) input:checked ~ div {
         color: #6da0e9;
       }
       &:nth-child(3) input:checked ~ div {
-        color: #3ae478;
+        color: #5be38a;
       }
       &:nth-child(4) input:checked ~ div {
         color: #f0ba72;
