@@ -51,24 +51,24 @@ main {
         border-radius: 50%;
         color: #ddd;
         font-size: 0;
-        height: 64px;
         position: relative;
         text-align: center;
-        width: 64px;
+        height: 17vw;
+        width: 17vw;
 
         & i {
-          font-size: 32px;
-          line-height: 48px;
+          font-size: 8.5vw;
+          line-height: 12.5vw;
         }
 
         &::after {
           background: #888;
-          border-radius: 5px;
+          border-radius: 2.5vw;
           content: '';
           display: block;
-          height: 10px;
+          height: 2.5vw;
           margin: auto;
-          width: 10px;
+          width: 2.5vw;
         }
       }
 
@@ -100,7 +100,7 @@ main {
     }
   }
   &.weather ul li div::after {
-    width: 32px;
+    width: 7.5vw;
   }
 }
 
