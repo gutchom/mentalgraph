@@ -1,0 +1,19 @@
+.calendar {
+  width: 100%;
+}
+
+.calendar--week {
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid #aaa;
+}
+
+.calendar--date {
+  vertical-align: top;
+  font-size: 0.5rem;
+  height: 8vh;
+  width: 8vw;
+  margin: 0;
+  padding: 0;
+  border-right: 1px solid #aaa;
+}

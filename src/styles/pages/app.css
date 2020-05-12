@@ -3,6 +3,7 @@
 @import "../commons/layouts/navigation.css";
 @import "../commons/variables.css";
 @import "../modules/modal.css";
+@import "./calendar.css";
 
 :root {
   --query-input-width: 96%;
@@ -11,6 +12,10 @@
 
 main {
   height: calc(100vh + 32px);
+}
+
+.main-content {
+  margin-top: 52px;
 }
 
 .question {

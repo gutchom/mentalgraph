@@ -10,7 +10,9 @@ export const BasicLayout: React.FC<BasicLayoutProps> = props => {
   return (
     <>
       <Header title={props.title}/>
-      {props.children}
+        <main className="main-content">
+          {props.children}
+        </main>
       <Navigation/>
     </>
   )
