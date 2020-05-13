@@ -9,7 +9,6 @@ export const Navigation: React.FC = _ => {
     setIsOpen(false)
   }, [location.pathname])
 
-  console.log(location)
   return (
     <div className="navigation-container">
       <button className="navigation-toggle" onClick={_ => setIsOpen(!isOpen)}>
