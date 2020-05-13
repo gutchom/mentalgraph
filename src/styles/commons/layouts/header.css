@@ -1,5 +1,9 @@
 @import "../variables.css";
 
+:root {
+  --header-button-size: 36px
+}
+
 .global-header {
   position: fixed;
   background: var(--color-main);
@@ -21,10 +25,56 @@
     display: block;
     height: 36px;
     width: 36px;
+    background: #fff;
+    color: var(--color-main);
+    font-size: 18px;
+    text-align: center;
+    line-height: 36px;
   }
 
   & .user--login {
     display: block;
     color: #fff;
+  }
+
+  & .user--icon--menu {
+    position: absolute;
+    right: 10px;
+    top: 56px;
+
+    & li {
+      transform: scale(0);
+      transition: transform var(--duration-slow) var(--easing-in-out-back);
+      visibility: hidden;
+      &.--open {
+        visibility: visible;
+        transform: scale(1);
+      }
+    }
+
+    & li {
+      box-sizing: content-box;
+      background: #fff;
+      border: 3px solid var(--color-main);
+      border-radius: 50%;
+      box-shadow: 0 0 10px 0 #aaa;
+      font-size: calc(var(--header-button-size) / 2);
+      line-height: var(--header-button-size);
+      height: var(--header-button-size);
+      text-align: center;
+      width: var(--header-button-size);
+      margin-bottom: 6px;
+
+      & .logout {
+        color: var(--color-main);
+        font-size: calc(var(--header-button-size) / 2);
+      }
+
+      & a,
+      & a:visited,
+      & a:focus {
+        color: var(--color-main);
+      }
+    }
   }
 }
