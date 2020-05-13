@@ -1,5 +1,6 @@
 :root {
   --color-main: #39c9d8;
+  --color-main-light: #96d3da;
   --color-select: #65b3c1;
   --color-select-shadow: color(var(--color-select) alpha(70%));
   --color-select-bg: color(var(--color-select) alpha(-24%));

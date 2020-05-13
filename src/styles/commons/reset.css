@@ -1,3 +1,8 @@
+* {
+  box-sizing:border-box;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
 html,
 body {
   font-family: "ヒラギノ角ゴシック Pro", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
@@ -35,6 +40,14 @@ input[type="radio"] {
   display: none;
 }
 
-* {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  & th {
+    font-weight: normal;
+  }
+  & td {
+    margin: 0;
+    padding: 0;
+  }
 }

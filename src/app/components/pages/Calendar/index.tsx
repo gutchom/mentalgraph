@@ -1,10 +1,12 @@
-import React from 'react'
-import moment from 'moment'
+import React, { useState } from 'react'
+import { DateTime } from 'luxon'
 import { Weather } from 'app/components/pages/Questionnaire/Weather'
 
 export type Date = {
-  date: string
-  condition: 1|2|3|4|5
+  year: number
+  month: number
+  date: number
+  condition: 0|1|2|3|4|5
   weathers: Weather[]
 }
 
@@ -18,57 +20,111 @@ function range(length: number): number[] {
 
 // todo: replace mock data
 const calendar: Date[] = range(31).map(n => {
-  const date = `2020-05-${('0' + (n+1)).slice(-2)}`
-  const condition = (Math.floor(Math.random() * (5 - 1)) + 1) as 1|2|3|4|5
-  const weathers = (['snow', 'storm', 'rainy', 'cloudy', 'sunny'].sort(() => Math.random() - 0.5).slice(-3)) as Weather[]
-  const result: Date = { date, condition, weathers }
-  return result
+  const year = 2020
+  const month = 5
+  const date = n+1
+  const condition = Math.floor(Math.random() * 5) as 0|1|2|3|4|5
+  const weathers = ['rainy', 'sunny', 'cloudy', 'storm', 'snowy']
+    .sort(() => Math.random() - 0.5)
+    .slice(Math.abs(Math.random() * 5)) as Weather[]
+
+  return { year, month, date, condition, weathers }
 })
 const json: Calendar = { calendar }
 
-const days = ['日', '月', '火', '水', '木', '金', '土']
+const weekdays = ['日', '月', '火', '水', '木', '金', '土']
+const faces = [
+  '',
+  'fas fa-dizzy',
+  'fas fa-frown',
+  'fas fa-meh',
+  'fas fa-smile',
+  'fas fa-grin-stars',
+]
+const weather = {
+  sunny: 'fas fa-sun',
+  cloudy: 'fas fa-cloud',
+  rainy: 'fas fa-umbrella',
+  storm: 'fas fa-bolt',
+  snowy: 'fas fa-snowflake',
+}
 
 export const Calendar: React.FC = _ => {
-  console.log(calendar)
-  const year = parseInt(json.calendar[0].date.split('-')[0], 10)
-  const month = parseInt(json.calendar[0].date.split('-')[1], 10)
-  const firstDayOfWeek = moment(json.calendar[0].date).day()
-  const firstDate = moment(json.calendar[0].date).subtract(firstDayOfWeek, 'days').format('YYYY-MM-DD')
+  const { calendar } = json
+  const now = DateTime.local()
+  const [year, setYear] = useState(now.year)
+  const [month, setMonth] = useState(now.month)
+  const firstDate = DateTime.local(year, month, 1)
+  const firstDateOfCalendar = firstDate.minus({days: firstDate.weekday - 1})
 
+  function handlePrevMonthClick() {
+    if (month === 1) {
+      setYear(year - 1)
+      setMonth(12)
+    } else {
+      setMonth(month - 1)
+    }
+  }
+  function handleNextMonthClick() {
+    if (month === 12) {
+      setYear(year + 1)
+      setMonth(1)
+    } else {
+      setMonth(month + 1)
+    }
+  }
 
   return (
     <>
-      <h2>
-        {`${year}年${month}月`}
-      </h2>
+      <header>
+        <h2 style={{textAlign: 'right', marginBottom: '4px',}}>
+          {`${year}年${month}月`}
+        </h2>
+      </header>
       <table className="calendar">
         <thead>
         <tr>
-          {range(7).map(n => (<th key={n} className="calendar--day">{days[n]}</th>))}
+          {range(7).map(n => (<th key={n} className="calendar--day">{weekdays[n]}</th>))}
         </tr>
         </thead>
         <tbody>
           {range(6).map(week => (<tr key={week} className="calendar--week">
             {range(7).map(day => {
-              const date = moment(firstDate).add(week * 7 + day, 'days').date()
+              const date = firstDateOfCalendar.plus({days: week * 7 + day }).day
+              const displayDate = (date !== 1)
+                ? date
+                : (week === 0)
+                  ? `${month}/${date}`
+                  : `${(month + 1 > 12) ? 1 : month + 1}/${date}`
 
-              let displayDate = `${date}`
-              if (week === 0 && day === 0) {
-                displayDate = `${month - 1}/${date}`
-              }
-              if (date === 1) {
-                if (week == 0) {
-                  displayDate = `${month}/${date}`
-                } else {
-                  displayDate = `${month + 1}/${date}`
-                }
-              }
-
-              return (<td key={day} className="calendar--date">{displayDate}</td>)
+              return (<td key={day} className="calendar--date">
+                <div className="container">
+                  <div className="top">
+                    <span className="date">{displayDate}</span>
+                    <i className={faces[calendar[date - 1].condition]}/>
+                  </div>
+                  <div className="bottom">
+                    {calendar[date - 1].weathers.map(key => {
+                      return (
+                        <div key={key} className="calendar--weather">
+                          <i className={weather[key]}/>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              </td>)
             })}
           </tr>))}
         </tbody>
       </table>
+      <div className="calendar--detail">
+        ここに選択した日の詳細を表示する予定
+      </div>
+      <footer className="calendar--page-button">
+        <button onClick={handlePrevMonthClick}><i className="fas fa-arrow-left"/></button>
+        <button onClick={handleNextMonthClick}><i className="fas fa-arrow-right"/></button>
+      </footer>
     </>
   )
 }

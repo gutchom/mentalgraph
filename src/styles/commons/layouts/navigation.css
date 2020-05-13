@@ -22,12 +22,15 @@
   display: flex;
   justify-content: center;
   position: fixed;
-  width: 100%;
+  margin: auto;
+  left: 40%;
+  right: 40%;
 
   & ul {
     position: absolute;
 
     & li {
+      box-sizing: content-box;
       position: absolute;
       background: #fff;
       border: 3px solid var(--color-main);
