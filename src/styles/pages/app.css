@@ -45,7 +45,7 @@ main {
         color: #5be38a;
       }
       &:nth-child(4) input:checked ~ div {
-        color: #f0ba72;
+        color: #f9d260;
       }
       &:nth-child(5) input:checked ~ div {
         color: #f05768;
@@ -89,7 +89,7 @@ main {
     }
 
     &:nth-child(2) input:checked ~ div {
-      color: #fff;
+      color: #ccc;
     }
 
     &:nth-child(3) input:checked ~ div {
@@ -101,7 +101,7 @@ main {
     }
 
     &:nth-child(5) input:checked ~ div {
-      color: #bae3ff;
+      color: #7bcbff;
     }
   }
   &.weather ul li div::after {

@@ -5,6 +5,20 @@
     border-left: 1px solid #ddd;
   }
 }
+.calendar,
+.calendar--detail {
+  & .fa-dizzy {color: #4b6fdb}
+  & .fa-frown {color: #6da0e9}
+  & .fa-meh {color: #5be38a}
+  & .fa-smile {color: #f9d260}
+  & .fa-grin-stars {color: #f05768}
+
+  & .fa-sun {color: #ff944c}
+  & .fa-cloud {color: #ccc}
+  & .fa-umbrella {color: #4184e2}
+  & .fa-bolt {color: #f0ba72}
+  & .fa-snowflake {color: #7bcbff}
+}
 
 .calendar--page-button {
   position: fixed;
@@ -18,6 +32,7 @@
     display: block;
     background: #fff;
     border: 2px solid var(--color-main);
+    box-shadow: 0 0 10px 0 #aaa;
     border-radius: 50%;
     color: var(--color-main);
     width: 2rem;
@@ -45,34 +60,49 @@
   width: 10vw;
   border-right: 1px solid #ddd;
 
-  & .container {
-    & .top {
-      position: relative;
-      margin-bottom: 4px;
-      & .date {
-        margin: 3px;
-      }
-      & i {
-        position: absolute;
-        display: block;
-        right: 2px;
-        top: 2px;
-        font-size: 1rem;
-      }
-    }
-    & .bottom {
-      padding: 2px;
-      display: flex;
-      justify-content: flex-start;
-      flex-wrap: wrap;
+  & label {
+    display: block;
+    height: 100%;
+  }
+
+  & input:checked ~ .container {
+    background: var(--color-main);
+    & .date,
+    & .fa-edit {
+      color: #fff;
     }
   }
 
-  & .fa-dizzy {color: #4b6fdb}
-  & .fa-frown {color: #6da0e9}
-  & .fa-meh {color: #5be38a}
-  & .fa-smile {color: #f0ba72}
-  & .fa-grin-stars {color: #f05768}
+  & .container {
+    position: relative;
+    height: 100%;
+    & .date {
+      margin: 3px;
+    }
+    & i {display: none}
+    & i.fas,
+    & i.far {
+      position: absolute;
+      display: block;
+      text-align: center;
+    }
+    & i.fas {
+      background: #fff;
+      border-radius: 50%;
+      border: 3px solid #fff;
+      left: 2.5vw;
+      top: 3vw;
+      font-size: 8vw;
+      line-height: 8vw;
+    }
+    & i.fa-edit {
+      color: var(--color-main);
+      left: 4.5vw;
+      top: 5vw;
+      font-size: 6vw;
+      line-height: 6vw;
+    }
+  }
 }
 
 .calendar--weather {
@@ -83,10 +113,51 @@
   width: 1rem;
   line-height: 1rem;
   text-align: center;
+}
 
-  & .fa-sun {color: #ff944c}
-  & .fa-cloud {color: #fff}
-  & .fa-umbrella {color: #4184e2}
-  & .fa-bolt {color: #f0ba72}
-  & .fa-snowflake {color: #bae3ff}
+.calendar--detail {
+  padding: 8px;
+
+  & header {
+    display: flex;
+
+    & h3 {
+      font-size: 1.2rem;
+      padding-left: 8px;
+    }
+    & button {
+      margin-top: 0.1rem;
+      margin-left: 0.5rem;
+      background: #fff;
+      border: 2px solid var(--color-main);
+      border-radius: 50%;
+      color: var(--color-main);
+      width: 1.6rem;
+      height: 1.6rem;
+    }
+  }
+
+  & .topic {
+    display: flex;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+
+    &.icon {
+      font-size: 8vw;
+      & i {
+        margin-right: 12px;
+      }
+    }
+
+    &.count,
+    &.time {
+      display: flex;
+      flex-wrap: wrap;
+      & span {
+        display: block;
+        margin-right: 1rem;
+        min-width: 4rem;
+      }
+    }
+  }
 }
