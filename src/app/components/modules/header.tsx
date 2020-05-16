@@ -1,4 +1,4 @@
-import firebase from 'firebase'
+import firebase from 'app/config'
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
