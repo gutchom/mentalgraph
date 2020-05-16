@@ -67,8 +67,7 @@
 
   & input:checked ~ .container {
     background: var(--color-main);
-    & .date,
-    & .fa-edit {
+    & .date {
       color: #fff;
     }
   }
@@ -85,10 +84,10 @@
       position: absolute;
       display: block;
       text-align: center;
-    }
-    & i.fas {
       background: #fff;
       border-radius: 50%;
+    }
+    & i.fas {
       border: 3px solid #fff;
       left: 2.5vw;
       top: 3vw;
@@ -96,11 +95,15 @@
       line-height: 8vw;
     }
     & i.fa-edit {
+      box-sizing: content-box;
+      border: 6px solid #fff;
       color: var(--color-main);
-      left: 4.5vw;
-      top: 5vw;
+      left: 2.5vw;
+      top: 4vw;
       font-size: 6vw;
       line-height: 6vw;
+      height: 6vw;
+      width: 6vw;
     }
   }
 }
@@ -157,6 +160,53 @@
         display: block;
         margin-right: 1rem;
         min-width: 4rem;
+      }
+    }
+  }
+}
+
+.modal.edit--condition {
+  & header {
+    background: var(--color-orange);
+    color: #fff;
+    padding: 6px;
+    text-align: left;
+
+    & h1 {
+      margin: 0 0.25em;
+    }
+  }
+
+  & footer {
+    background: #fff;
+    border-top: 1px solid var(--color-gray);
+    padding: 6px;
+    text-align: left;
+    display: flex;
+    justify-content: flex-end;
+
+    & button {
+      font-weight: bold;
+      letter-spacing: 0.2em;
+      margin: 0 6px;
+      padding: 8px 12px;
+      border-radius: 2rem;
+      display: block;
+
+      &.cancel {
+        background: #fff;
+        border: 1px solid var(--color-orange);
+        color: var(--color-orange);
+        &:focus {
+          background: var(--color-orange-dark);
+        }
+      }
+      &.save {
+        background: var(--color-orange);
+        color: #fff;
+        &:focus {
+          background: var(--color-orange-dark);
+        }
       }
     }
   }

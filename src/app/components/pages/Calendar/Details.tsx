@@ -1,8 +1,7 @@
-import React from 'react'
+import React, { MouseEvent } from 'react'
 
-export type DetailsProps = {
-  date: string
-  condition: string
+export type DetailProps = {
+  handleOpenEdit(e: MouseEvent<HTMLButtonElement>): void
 }
 /*
 const weather = {
@@ -13,12 +12,12 @@ const weather = {
   snowy: 'fas fa-snowflake',
 }
 */
-export const Details: React.FC = props => {
+export const Detail: React.FC<DetailProps> = props => {
   return (
     <div className="calendar--detail">
       <header>
         <h3>5/23</h3>
-        <button><i className="far fa-edit"/></button>
+        <button onClick={props.handleOpenEdit}><i className="far fa-edit"/></button>
       </header>
 
       <div className="topic icon">

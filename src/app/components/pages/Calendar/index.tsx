@@ -1,6 +1,7 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { MouseEvent, ChangeEvent, useState } from 'react'
 import { DateTime } from 'luxon'
-import { Details } from './Details'
+import { Detail } from './Details'
+import { Edit } from './Edit'
 import { Weather } from 'app/components/pages/Questionnaire/Weather'
 
 export type Date = {
@@ -52,6 +53,7 @@ export const Calendar: React.FC = _ => {
   const [year, setYear] = useState(now.year)
   const [month, setMonth] = useState(now.month)
   const [selected, setSelected] = useState('')
+  const [isEditOpen, setIsEditOpen] = useState(false)
   const firstDate = DateTime.local(year, month, 1)
   const firstDateOfCalendar = firstDate.minus({days: firstDate.weekday - 1})
 
@@ -74,6 +76,10 @@ export const Calendar: React.FC = _ => {
 
   function handleChangeSelected(e: ChangeEvent<HTMLInputElement>) {
     setSelected(e.target.value)
+  }
+
+  function handleOpenEdit(e: MouseEvent<HTMLButtonElement>) {
+    setIsEditOpen(true)
   }
 
   return (
@@ -114,7 +120,10 @@ export const Calendar: React.FC = _ => {
                   />
                   <div className="container">
                     <span className="date">{displayDate}</span>
-                    <i className={face}/>
+                    {calendar[date - 1].condition > 0
+                      ? (<i className={face}/>)
+                      : (<button onClick={handleOpenEdit}><i className={face}/></button>)
+                    }
                   </div>
                 </label>
               </td>)
@@ -122,11 +131,16 @@ export const Calendar: React.FC = _ => {
           </tr>))}
         </tbody>
       </table>
-      <Details/>
+      <Detail handleOpenEdit={handleOpenEdit}/>
       <footer className="calendar--page-button">
         <button onClick={handlePrevMonthClick}><i className="fas fa-arrow-left"/></button>
         <button onClick={handleNextMonthClick}><i className="fas fa-arrow-right"/></button>
       </footer>
+      <Edit
+        visible={isEditOpen}
+        onClose={_ => setIsEditOpen(false)}
+        onSave={_ => setIsEditOpen(false)}
+      />
     </>
   )
 }
