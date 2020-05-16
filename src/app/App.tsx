@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from 'react'
 import {
   BrowserRouter as Router,
   Switch,
@@ -10,7 +10,7 @@ import { Calendar } from 'app/components/pages/Calendar'
 import { Chart } from 'app/components/pages/Chart'
 import { Config } from 'app/components/pages/Config'
 
-export function App() {
+export function App(): ReactElement {
   return (
     <Router>
       <Switch>
