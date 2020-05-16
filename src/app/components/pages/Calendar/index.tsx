@@ -1,15 +1,15 @@
-import React, { MouseEvent, ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import { DateTime } from 'luxon'
 import { Detail } from './Details'
 import { Edit } from './Edit'
-import { Weather } from 'app/components/pages/Questionnaire/Weather'
+import { Weathers } from 'app/components/pages/Questionnaire/Weather'
 
 export type Date = {
   year: number
   month: number
   date: number
   condition: 0|1|2|3|4|5
-  weathers: Weather[]
+  weathers: Weathers[]
 }
 
 export type Calendar = {
@@ -28,7 +28,7 @@ const calendar: Date[] = range(31).map(n => {
   const condition = Math.floor(Math.random() * 6) as 0|1|2|3|4|5
   const weathers = ['rainy', 'sunny', 'cloudy', 'storm', 'snowy']
     .sort(() => Math.random() - 0.5)
-    .slice(Math.abs(Math.random() * 5)) as Weather[]
+    .slice(Math.abs(Math.random() * 5)) as Weathers[]
 
   return { year, month, date, condition, weathers }
 })
@@ -78,7 +78,7 @@ export const Calendar: React.FC = _ => {
     setSelected(e.target.value)
   }
 
-  function handleOpenEdit(e: MouseEvent<HTMLButtonElement>) {
+  function handleOpenEdit() {
     setIsEditOpen(true)
   }
 

@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react'
 
-export type Weather = 'cloudy' | 'sunny' | 'rainy' | 'snowy' | 'storm'
+export type Weathers = 'cloudy' | 'sunny' | 'rainy' | 'snowy' | 'storm'
 
 export type WeatherState = {
   cloudy: boolean;
@@ -18,7 +18,7 @@ const initialWhether: WeatherState = {
   storm: false,
 }
 
-function reducer(state: WeatherState, action: {type: Weather}): WeatherState {
+function reducer(state: WeatherState, action: {type: Weathers}): WeatherState {
   return { ...state, [action.type]: !state[action.type] }
 }
 
