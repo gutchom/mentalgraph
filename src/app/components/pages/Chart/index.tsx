@@ -1,7 +1,10 @@
 import React from 'react'
+import { BasicLayout } from 'app/components/layouts/BasicLayout'
 
 export const Chart: React.FC = _ => {
   return (
-    <h2>ここはグラフ</h2>
+    <BasicLayout title="グラフ">
+      <h2>体調変化のグラフ表示をしたい</h2>
+    </BasicLayout>
   )
 }

@@ -1,7 +1,10 @@
 import React from 'react'
+import { BasicLayout } from 'app/components/layouts/BasicLayout'
 
-export const Config: React.FC = _ => {
+export const Config: React.FC = () => {
   return (
-    <h2>ここは設定</h2>
+    <BasicLayout title="設定">
+      <h2>ここは設定</h2>
+    </BasicLayout>
   )
 }

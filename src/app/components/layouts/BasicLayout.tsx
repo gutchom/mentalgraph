@@ -1,14 +1,13 @@
-import React, { ReactElement, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useLocation } from "react-router-dom";
+import { useAuthState } from 'react-firebase-hooks/auth'
+import firebase from 'app/config'
 import { Header, HeaderProps } from 'app/components/modules/Header'
 import { Navigation } from 'app/components/modules/Navigation'
 
-export type BasicLayoutProps = HeaderProps & {
-  children: ReactElement
-}
-
-export const BasicLayout: React.FC<BasicLayoutProps> = props => {
+export const BasicLayout: React.FC<HeaderProps> = ({ title, children }) => {
   const { pathname } = useLocation()
+  const [user] = useAuthState(firebase.auth())
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -16,11 +15,11 @@ export const BasicLayout: React.FC<BasicLayoutProps> = props => {
 
   return (
     <>
-      <Header title={props.title}/>
-        <main className="main-content">
-          {props.children}
-        </main>
-      <Navigation/>
+      <Header title={title}/>
+      <main className="main-content">
+        {children}
+      </main>
+      {user && <Navigation/>}
     </>
   )
 }

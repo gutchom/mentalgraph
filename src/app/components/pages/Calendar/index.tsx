@@ -83,7 +83,7 @@ export const Calendar: React.FC = _ => {
   }
 
   return (
-    <>
+    <BasicLayout title="カレンダー">
       <header>
         <h2 style={{textAlign: 'right', marginBottom: '4px',}}>
           {`${year}年${month}月`}
@@ -141,6 +141,6 @@ export const Calendar: React.FC = _ => {
         onClose={_ => setIsEditOpen(false)}
         onSave={_ => setIsEditOpen(false)}
       />
-    </>
+    </BasicLayout>
   )
 }
