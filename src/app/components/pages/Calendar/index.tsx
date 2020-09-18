@@ -3,6 +3,7 @@ import { DateTime } from 'luxon'
 import { Detail } from './Details'
 import { Edit } from './Edit'
 import { Weathers } from 'app/components/pages/Questionnaire/Weather'
+import { BasicLayout } from 'app/components/layouts/BasicLayout'
 
 export type Date = {
   year: number
@@ -10,10 +11,6 @@ export type Date = {
   date: number
   condition: 0|1|2|3|4|5
   weathers: Weathers[]
-}
-
-export type Calendar = {
-  calendar: Date[]
 }
 
 function range(length: number): number[] {
@@ -34,7 +31,7 @@ const calendar: Date[] = range(31).map(n => {
 })
 
 // todo: replace mock data
-const json: Calendar = { calendar }
+const json: { calendar: Date[] } = { calendar }
 
 const weekdays = ['日', '月', '火', '水', '木', '金', '土']
 
@@ -47,7 +44,7 @@ const faces = [
   'fas fa-grin-stars',
 ]
 
-export const Calendar: React.FC = _ => {
+export const Calendar: React.FC = () => {
   const { calendar } = json
   const now = DateTime.local()
   const [year, setYear] = useState(now.year)
@@ -138,8 +135,8 @@ export const Calendar: React.FC = _ => {
       </footer>
       <Edit
         visible={isEditOpen}
-        onClose={_ => setIsEditOpen(false)}
-        onSave={_ => setIsEditOpen(false)}
+        onClose={() => setIsEditOpen(false)}
+        onSave={() => setIsEditOpen(false)}
       />
     </BasicLayout>
   )

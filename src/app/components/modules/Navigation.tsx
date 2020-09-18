@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
-export const Navigation: React.FC = _ => {
+export const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false)
   const location = useLocation()
 
@@ -11,7 +11,7 @@ export const Navigation: React.FC = _ => {
 
   return (
     <div className="navigation-container">
-      <button className="navigation-toggle" onClick={_ => setIsOpen(!isOpen)}>
+      <button className="navigation-toggle" onClick={() => setIsOpen(!isOpen)}>
         <i className="fas fa-layer-group"/>
       </button>
 
