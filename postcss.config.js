@@ -14,8 +14,6 @@ module.exports = (context) => ({
         'nesting-rules': true
       }
     },
-    'postcss-reporter': {},
-    'postcss-browser-reporter': {},
     'cssnano': isProduction && {
       preset: 'default',
     },
