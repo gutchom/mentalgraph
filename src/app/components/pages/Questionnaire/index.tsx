@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Condition } from './Condition'
+import { Mood } from './Mood'
 import { Weather } from './Weather'
 import { Counter } from './Counter'
 import { Time } from './Time'
