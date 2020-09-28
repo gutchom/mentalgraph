@@ -49,7 +49,10 @@ export const Counter: React.FC<CounterProps> = props => {
 
   function handleTransitionEnd(e: React.TransitionEvent<HTMLDivElement>) {
     if (e.propertyName === 'transform') {
-      db.ref(`${path}/titles/${props.titleId}`).remove()
+      db.ref().update({
+        [`${path}/counts/${props.date}/${props.titleId}`]: null,
+        [`${path}/titles/${props.titleId}`]: null,
+      })
       counterRef.current?.style.setProperty("display", "none")
     }
   }
