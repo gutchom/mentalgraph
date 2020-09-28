@@ -10,12 +10,9 @@
   --query-input-base-width: 320px;
 }
 
-main {
-  height: calc(100vh + 32px);
-}
-
 .main-content {
-  margin-top: 52px;
+  margin: 52px auto;
+  padding-bottom: 100px;
 }
 
 .question {
@@ -117,42 +114,70 @@ main {
     padding: 12px;
   }
 
-  & button {
-    background: #000;
-    border-radius: 50%;
-    color: #fff;
-    display: block;
-    font-size: 24px;
-    height: 36px;
-    line-height: 36px;
-    text-align: center;
-    width: 36px;
-  }
-
   & .container {
     display: flex;
     justify-content: center;
+    position: relative;
 
     & * {
       align-self: center;
+    }
+
+    & button {
+      background: #000;
+      border-radius: 50%;
+      color: #fff;
+      display: block;
+      font-size: 24px;
+      height: 36px;
+      line-height: 36px;
+      text-align: center;
+      width: 36px;
+
+      &:last-child {
+        background: #fff;
+        border: 2px solid var(--color-alert);
+        color: var(--color-alert);
+        font-size: 18px;
+        line-height: 24px;
+        height: 30px;
+        width: 30px;
+        position: absolute;
+        right: 12px;
+      }
     }
   }
 }
 
 .question.time {
-  & input {
-    border: 2px solid #000;
-    border-radius: 6px;
-    height: 32px;
-    text-align: center;
-    width: 32px;
+  & label {
+    display: block;
+    height: 100%;
+  }
+
+  & .label-container {
+    border: 2px solid #aaa;
+    border-radius: var(--radius-small);
+    padding: 2px 6px;
+    margin-right: 8px;
+    font-weight: normal;
+    font-size: 18px;
+  }
+
+  & input:checked ~ .label-container {
+    background: var(--color-main);
+    border-color: var(--color-main);
+
+    & span {
+      color: #fff;
+    }
   }
 
   & .container {
     display: flex;
     justify-content: center;
 
-    & * {
+    & > * {
       align-self: center;
       display: block;
       font-size: 24px;
@@ -182,10 +207,41 @@ main {
 
 .question-count--wrapper {
   position: relative;
+  transition: 0.4ms;
+
+  & .confirm-deletion {
+  background: rgba(92, 92, 92, 0.72);
+  border-radius: var(--radius);
+  box-shadow: 0 0 10px 8px rgba(92, 92, 92, 0.72);
+  height: 95%;
+  margin: auto;
+  left: -50%;
+  right: -50%;
+  opacity: 0;
+  position: absolute;
+  transition: var(--duration-slow);
+  visibility: hidden;
+  width: 96%;
+  z-index: 200;
+
+  & button {
+    background: var(--color-alert);
+    border-radius: 50%;
+    bottom: -50%;
+    color: #fff;
+    font-size: 48px;
+    height: 72px;
+    left: -50%;
+    margin: auto;
+    position: absolute;
+    right: -50%;
+    top: -50%;
+    width: 72px;
+  }
+}
 }
 
 .question--config {
-  position: absolute;
   display: block;
   background: #fff;
   border: 2px solid var(--color-main);
@@ -194,8 +250,7 @@ main {
   width: 2rem;
   height: 2rem;
   font-size: 1rem;
-  top: 44px;
-  right: 16px;
+  margin: 12px auto;
 }
 
 .modal.edit--count {

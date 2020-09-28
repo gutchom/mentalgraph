@@ -60,6 +60,12 @@
   width: 10vw;
   border-right: 1px solid #ddd;
 
+  & button {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+
   & label {
     display: block;
     height: 100%;
@@ -77,6 +83,7 @@
     height: 100%;
     & .date {
       margin: 3px;
+      position: absolute;
     }
     & i {display: none}
     & i.fas,

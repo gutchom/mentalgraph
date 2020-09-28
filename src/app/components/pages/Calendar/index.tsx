@@ -1,41 +1,19 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { useState } from 'react'
 import { DateTime } from 'luxon'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { useList } from 'react-firebase-hooks/database';
+import firebase, { db } from 'app/config'
+import { BasicLayout } from 'app/components/layouts/BasicLayout'
 import { Detail } from './Details'
 import { Edit } from './Edit'
-import { Weathers } from 'app/components/pages/Questionnaire/Weather'
-import { BasicLayout } from 'app/components/layouts/BasicLayout'
-
-export type Date = {
-  year: number
-  month: number
-  date: number
-  condition: 0|1|2|3|4|5
-  weathers: Weathers[]
-}
 
 function range(length: number): number[] {
   return [...Array(length)].map((_, n) => n)
 }
 
-// todo: replace mock data
-const calendar: Date[] = range(31).map(n => {
-  const year = 2020
-  const month = 5
-  const date = n+1
-  const condition = Math.floor(Math.random() * 6) as 0|1|2|3|4|5
-  const weathers = ['rainy', 'sunny', 'cloudy', 'storm', 'snowy']
-    .sort(() => Math.random() - 0.5)
-    .slice(Math.abs(Math.random() * 5)) as Weathers[]
-
-  return { year, month, date, condition, weathers }
-})
-
-// todo: replace mock data
-const json: { calendar: Date[] } = { calendar }
-
 const weekdays = ['日', '月', '火', '水', '木', '金', '土']
 
-const faces = [
+export const emoticons = [
   'far fa-edit',
   'fas fa-dizzy',
   'fas fa-frown',
@@ -45,14 +23,44 @@ const faces = [
 ]
 
 export const Calendar: React.FC = () => {
-  const { calendar } = json
   const now = DateTime.local()
   const [year, setYear] = useState(now.year)
   const [month, setMonth] = useState(now.month)
-  const [selected, setSelected] = useState('')
+  const [selected, setSelected] = useState(now.toISODate())
   const [isEditOpen, setIsEditOpen] = useState(false)
   const firstDate = DateTime.local(year, month, 1)
-  const firstDateOfCalendar = firstDate.minus({days: firstDate.weekday - 1})
+  const firstDateOfPage = firstDate.minus({ days: firstDate.weekday - 1} )
+  const startDate = firstDateOfPage.toISODate()
+  const endDate = firstDateOfPage.plus({ days: 41 }).toISODate()
+  const [user] = useAuthState(firebase.auth())
+  const moods = useList(db.ref(`conditions/${user?.uid}/moods`)
+    .orderByKey()
+    .startAt(startDate)
+    .endAt(endDate))[0]
+    ?.map(item => ({ date: item.key, mood: item.val() as number }))
+  const weathers = useList(db.ref(`conditions/${user?.uid}/weather`)
+    .orderByKey()
+    .startAt(startDate)
+    .endAt(endDate))[0]
+    ?.map(item => ({ date: item.key, condition: item.val() }))
+  const sleeping = useList(db.ref(`conditions/${user?.uid}/sleeping`)
+    .orderByKey()
+    .startAt(startDate)
+    .endAt(endDate))[0]
+    ?.map(item => ({ date: item.key, time: item.val() }))
+  const counters = useList(db.ref(`conditions/${user?.uid}/counter/counts`)
+    .orderByKey()
+    .startAt(startDate)
+    .endAt(endDate))[0]
+    ?.map(item => {
+      const count = item.val()
+      const counts = Object.keys(count)
+        .map(id => ({ id, ...count[id] }))
+        .sort((a, b) => a.timestamp - b.timestamp)
+      return {
+        date: item.key,
+        counts,
+      }})
 
   function handlePrevMonthClick() {
     if (month === 1) {
@@ -62,6 +70,7 @@ export const Calendar: React.FC = () => {
       setMonth(month - 1)
     }
   }
+
   function handleNextMonthClick() {
     if (month === 12) {
       setYear(year + 1)
@@ -71,56 +80,57 @@ export const Calendar: React.FC = () => {
     }
   }
 
-  function handleChangeSelected(e: ChangeEvent<HTMLInputElement>) {
-    setSelected(e.target.value)
-  }
-
-  function handleOpenEdit() {
+  function handleOpenEdit(date: string) {
+    setSelected(date)
     setIsEditOpen(true)
   }
 
   return (
     <BasicLayout title="カレンダー">
       <header>
-        <h2 style={{textAlign: 'right', marginBottom: '4px',}}>
+        <h2 style={{ textAlign: 'right', marginBottom: '4px' }}>
           {`${year}年${month}月`}
         </h2>
       </header>
       <table className="calendar">
         <thead>
           <tr>
-            {range(7).map(n => (<th key={n} className="calendar--day">{weekdays[n]}</th>))}
+            {weekdays.map(day => (<th key={day} className="calendar--day">{day}</th>))}
           </tr>
         </thead>
         <tbody>
           {range(6).map(week => (<tr key={week} className="calendar--week">
-            {range(7).map(day => {
-              const date = firstDateOfCalendar.plus({days: week * 7 + day }).day
-              const face = faces[calendar[date - 1].condition]
+            {range(7).map(index => {
+              const thisDate = firstDateOfPage.plus({ days: week * 7 + index })
+              const isoDate = thisDate.toISODate()
+              const thisDay = thisDate.day
+              const mood = moods?.find(({ date }) => date === isoDate)?.mood ?? 0
               const thisMonth = (week === 0)
-                ? (date > 7)
+                ? (thisDay > 7)
                   ? (month - 1 < 1) ? 12 : month - 1
                   : month
-                : (week > 3 && day < 15)
+                : (week > 3 && thisDay < 15)
                   ? (month + 1 > 12) ? 1 : month + 1
                   : month
-              const displayDate = (date === 1) ? `${thisMonth}/${date}` : date
+              const displayDate = (thisDay === 1) ? `${thisMonth}/${thisDay}` : thisDay
 
-              return (<td key={day} className="calendar--date">
+              return (<td key={isoDate} className="calendar--date">
                 <label>
                   <input className="radio"
                          type="radio"
                          name="select-date"
-                         value={`${thisMonth}/${date}`}
-                         checked={selected === `${thisMonth}/${date}`}
-                         onChange={handleChangeSelected}
+                         checked={selected === isoDate}
+                         onChange={() => setSelected(isoDate)}
                   />
                   <div className="container">
                     <span className="date">{displayDate}</span>
-                    {calendar[date - 1].condition > 0
-                      ? (<i className={face}/>)
-                      : (<button onClick={handleOpenEdit}><i className={face}/></button>)
-                    }
+                    {mood > 0
+                      ? (<i className={emoticons[mood]}/>)
+                      : thisDate <= now && (
+                        <button onClick={() => handleOpenEdit(isoDate)}>
+                          <i className={emoticons[mood]}/>
+                        </button>
+                    )}
                   </div>
                 </label>
               </td>)
@@ -128,12 +138,23 @@ export const Calendar: React.FC = () => {
           </tr>))}
         </tbody>
       </table>
-      <Detail handleOpenEdit={handleOpenEdit}/>
+
+      <Detail
+        date={selected}
+        mood={moods?.find(({ date }) => date === selected)?.mood ?? 0}
+        weather={weathers?.find(({ date }) => date === selected)?.condition}
+        sleeping={sleeping?.find(({ date }) => date === selected)?.time}
+        counts={counters?.find(({ date }) => date === selected)?.counts ?? []}
+        handleOpenEdit={() => handleOpenEdit(selected)}
+      />
+
       <footer className="calendar--page-button">
         <button onClick={handlePrevMonthClick}><i className="fas fa-arrow-left"/></button>
         <button onClick={handleNextMonthClick}><i className="fas fa-arrow-right"/></button>
       </footer>
+
       <Edit
+        date={selected}
         visible={isEditOpen}
         onClose={() => setIsEditOpen(false)}
         onSave={() => setIsEditOpen(false)}

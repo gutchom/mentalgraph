@@ -25,13 +25,16 @@
   },
   "emulators": {
     "functions": {
-      "port": 5001
+      "port": 5001,
+      "host": "0.0.0.0"
     },
     "database": {
-      "port": 9000
+      "port": 9000,
+      "host": "0.0.0.0"
     },
     "hosting": {
-      "port": 5000
+      "port": 5000,
+      "host": "0.0.0.0"
     }
   }
 }

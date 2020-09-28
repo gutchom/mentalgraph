@@ -12,6 +12,7 @@ import { Questionnaire } from 'app/components/pages/Questionnaire'
 import { Calendar } from 'app/components/pages/Calendar'
 import { Chart } from 'app/components/pages/Chart'
 import { Config } from 'app/components/pages/Config'
+import { BasicLayout } from 'app/components/layouts/BasicLayout'
 
 function PrivateRoute(props: RouteProps) {
   const [user] = useAuthState(firebase.auth())
@@ -23,7 +24,7 @@ export function App() {
   return (
     <Router>
       <Switch>
-        <PrivateRoute path="/" exact children={<Questionnaire />} />
+        <PrivateRoute path="/" exact children={<BasicLayout title="今日の体調"><Questionnaire /></BasicLayout>} />
         <PrivateRoute path="/calendar" children={<Calendar />} />
         <PrivateRoute path="/chart" children={<Chart />} />
         <PrivateRoute path="/config" children={<Config />} />

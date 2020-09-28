@@ -1,6 +1,59 @@
 {
   "rules": {
-    ".read": true,
-    ".write": true
+    ".read": false,
+    ".write": false,
+    "users": {
+      "$userId": {
+        ".read": "$userId == auth.uid",
+        ".write": "$userId == auth.uid",
+        "twitterId": { ".validate": "newData.isString()" },
+        "screenName": { ".validate": "newData.isString()" },
+        "username": { ".validate": "newData.isString()" },
+        "iconUrl": { ".validate": "newData.isString()" },
+        "oauthAccessToken": { ".validate": "newData.isString()" },
+        "oauthTokenSecret": { ".validate": "newData.isString()" }
+      }
+    },
+    "conditions": {
+      "$userId": {
+        ".read": "$userId == auth.uid",
+        ".write": "$userId == auth.uid",
+        "counter": {
+          "titles": {
+            "$id": {
+              "title": { ".validate": "newData.isString()" },
+              "timestamp": { ".validate": "newData.val() < now" }
+            }
+          },
+          "counts": {
+            "$date": {
+              "$titleId": {
+                "title": { ".validate": "newData.isString()" },
+                "count": { ".validate": "newData.isNumber()" },
+                "timestamp": { ".validate": "newData.isNumber()" }
+              }
+            }
+          }
+        },
+        "moods": {
+          "$date": {".validate": "newData.val() >= 0 && newData.val() <= 5" }
+        },
+        "weather": {
+          "$date": {
+            "cloudy": { ".validate": "newData.isBoolean()" },
+            "sunny": { ".validate": "newData.isBoolean()" },
+            "rainy": { ".validate": "newData.isBoolean()" },
+            "snowy": { ".validate": "newData.isBoolean()" },
+            "storm": { ".validate": "newData.isBoolean()" }
+          }
+        },
+        "sleeping": {
+          "$date": {
+            "awake": { ".validate": "newData.isNumber()" },
+            "asleep": { ".validate": "newData.isNumber()" }
+          }
+        }
+      }
+    }
   }
 }
