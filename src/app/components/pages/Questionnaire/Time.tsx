@@ -1,8 +1,8 @@
-import firebase, { db } from 'app/config'
-import { DateTime } from 'luxon'
 import React, { useEffect, useState } from 'react'
+import { DateTime } from 'luxon'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useObjectVal } from 'react-firebase-hooks/database'
+import firebase, { db } from 'app/config'
 
 export type TimeInputType = 'awake' | 'asleep'
 
@@ -10,7 +10,7 @@ export type TimeProps = {
   type: TimeInputType
   date: string
   title: string
-  onChange(type: TimeInputType, hour: number, minute: number, over: -1|0|1): void
+  onChange(type: TimeInputType, hour: number, minute: number): void
 }
 
 export const Time: React.FC<TimeProps> = props => {
@@ -19,8 +19,6 @@ export const Time: React.FC<TimeProps> = props => {
   const [timestamp, loading] = useObjectVal(db.ref(`${path}/${props.type}`))
   const [hour, setHour] = useState(0)
   const [minute, setMinute] = useState(0)
-  const [isOverDay, setIsOverDay] = useState(false)
-  const over = isOverDay ? (props.type === 'awake' ? -1 : 1) : 0
 
   useEffect(() => {
     if (!loading && timestamp) {
@@ -38,36 +36,19 @@ export const Time: React.FC<TimeProps> = props => {
   function handleHourChange(e: React.ChangeEvent<HTMLSelectElement>) {
     const current = parseInt(e.target.value, 10)
     setHour(current)
-    props.onChange(props.type, current, minute, over)
+    props.onChange(props.type, current, minute)
   }
 
   function handleMinuteChange(e: React.ChangeEvent<HTMLSelectElement>) {
     const current = parseInt(e.target.value, 10)
     setMinute(current)
-    props.onChange(props.type, hour, current, over)
+    props.onChange(props.type, hour, current)
   }
 
   return (
     <fieldset className="question time">
       <legend>{props.title}</legend>
       <div className="container">
-        <label>
-          <input
-            type="checkbox"
-            checked={isOverDay}
-            onChange={() => setIsOverDay(!isOverDay)}
-          />
-          <div className="label-container">
-            {props.type === 'awake'
-              ? isOverDay
-                ? (<span>前の日の</span>)
-                : (<span>この日の</span>)
-              : isOverDay
-                ? (<span>次の日の</span>)
-                : (<span>この日の</span>)
-            }
-          </div>
-        </label>
         <select dir="rtl" value={hour} onChange={handleHourChange}>
           {[...Array(24)].map((_, hour) => (
             <option key={hour} value={hour}>{hour}</option>

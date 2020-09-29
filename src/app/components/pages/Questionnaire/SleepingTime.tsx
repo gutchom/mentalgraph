@@ -12,13 +12,9 @@ export const SleepingTime: React.FC<SleepingTimeProps> = props => {
   const [user] = useAuthState(firebase.auth())
   const date = DateTime.fromISO(props.date)
 
-  function handleChange(type: TimeInputType, hour: number, minute: number, day: -1|0|1) {
-    const actual = date.plus({ day }).toISODate()
-    const timestamp = date
-      .set({ hour, minute })
-      .plus({ day })
-      .toMillis()
-    db.ref(`conditions/${user?.uid}/sleeping/${actual}/${type}`).set(timestamp)
+  function handleChange(type: TimeInputType, hour: number, minute: number) {
+    const timestamp = date.set({ hour, minute }).toMillis()
+    db.ref(`conditions/${user?.uid}/sleeping/${date.toISODate()}/${type}`).set(timestamp)
   }
 
   return (
