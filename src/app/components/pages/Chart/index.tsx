@@ -72,6 +72,11 @@ export const Chart: React.FC = () => {
 
   return (
     <BasicLayout title="グラフ">
+      <header>
+        <h2 style={{ textAlign: 'right', marginBottom: '4px' }}>
+          {`${year}年${month}月`}
+        </h2>
+      </header>
       <LineChart
         width={window.innerWidth}
         height={300}

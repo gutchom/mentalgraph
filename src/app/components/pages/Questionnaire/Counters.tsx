@@ -44,7 +44,11 @@ export const Counters: React.FC<CountersProps> = props => {
 
   return (
     <>
-      {counters?.map(({ titleId, title, count, timestamp }) => (
+      {counters?.length === 0 ? (
+        <fieldset className="question count">
+          <legend>カウンター</legend>
+        </fieldset>
+      ) : counters?.map(({ titleId, title, count, timestamp }) => (
         <Counter
           key={titleId as string}
           titleId={titleId as string}

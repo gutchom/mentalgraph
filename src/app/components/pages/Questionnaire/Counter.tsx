@@ -85,6 +85,7 @@ export const Counter: React.FC<CounterProps> = props => {
             <input
               type="text"
               value={title}
+              placeholder="カウンターの名前"
               onChange={e => setTitle(e.target.value)}
               onBlur={handleTitleSubmit}
             />
