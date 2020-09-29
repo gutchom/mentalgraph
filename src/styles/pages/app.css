@@ -15,6 +15,51 @@
   padding-bottom: 100px;
 }
 
+.fullscreen-loading {
+  text-align: center;
+  & h2 {
+    margin-top: 50%;
+  }
+  & img {
+    margin-top: 10%;
+  }
+}
+
+.landing-page {
+  & section {
+    padding: 8px 8px;
+  }
+
+  & .login {
+    margin: 24px auto;
+    text-align: center;
+    & button {
+      background-color: #1da1f2;
+      border-radius: 4px;
+      color: #fff;
+      font-size: 16px;
+      padding: 8px 12px;
+    }
+    & i {
+      padding-right: 6px;
+    }
+    & span {
+      font-weight: bold;
+      padding-left: 6px;
+    }
+  }
+
+  & .top-screenshot {
+    display: flex;
+    justify-content: space-around;
+    margin: 12px auto;
+    & img {
+      display: block;
+      border: 1px solid #eee;
+    }
+  }
+}
+
 .question {
   border: none;
 

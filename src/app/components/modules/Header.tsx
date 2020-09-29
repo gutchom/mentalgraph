@@ -32,12 +32,6 @@ export const Header: React.FC<HeaderProps> = props => {
         }})
   }, [])
 
-  function handleLogin() {
-    console.log('tapped')
-    const provider = new firebase.auth.TwitterAuthProvider()
-    firebase.auth().signInWithRedirect(provider)
-  }
-
   function handleLogout() {
     firebase.auth().signOut().then(() => {
       history.push("/")
@@ -49,9 +43,7 @@ export const Header: React.FC<HeaderProps> = props => {
   return (
     <header className="global-header">
       <h1>{props.title}</h1>
-      {!user ? (
-        <button onClick={handleLogin}>ログイン</button>
-      ) : (
+      {user && (
         <>
           <button className="user--icon" type="button" onClick={() => setIsOpen(!isOpen)}>
             {loading

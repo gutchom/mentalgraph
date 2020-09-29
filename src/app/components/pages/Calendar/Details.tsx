@@ -7,7 +7,7 @@ export type DetailProps = {
   date: string
   mood: number
   weather: WeatherState
-  sleeping?: {
+  sleeping: {
     awake: number
     asleep: number
   }
