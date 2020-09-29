@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { DateTime } from 'luxon'
+import { useHistory } from 'react-router-dom'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { useList } from 'react-firebase-hooks/database';
+import { useList } from 'react-firebase-hooks/database'
 import firebase, { db } from 'app/config'
 import { BasicLayout } from 'app/components/layouts/BasicLayout'
 import { Detail } from './Details'
@@ -23,10 +24,13 @@ export const emoticons = [
 ]
 
 export const Calendar: React.FC = () => {
+  const history = useHistory()
+  const [path] = location.pathname.match(/\d{4}-\d{2}/) ?? []
   const now = DateTime.local()
-  const [year, setYear] = useState(now.year)
-  const [month, setMonth] = useState(now.month)
-  const [selected, setSelected] = useState(now.toISODate())
+  const date = DateTime.fromISO(path ?? now.toISODate())
+  const [year, setYear] = useState(date.year)
+  const [month, setMonth] = useState(date.month)
+  const [selected, setSelected] = useState(path ? `${path}-01` : now.toISODate())
   const [isEditOpen, setIsEditOpen] = useState(false)
   const firstDate = DateTime.local(year, month, 1)
   const firstDateOfPage = firstDate.minus({ days: firstDate.weekday - 1} )
@@ -61,6 +65,10 @@ export const Calendar: React.FC = () => {
         date: item.key,
         counts,
       }})
+
+  useEffect(() => {
+    history.push(`/calendar/${year}-${month.toString(10).padStart(2, '0')}`)
+  }, [year, month])
 
   function handlePrevMonthClick() {
     if (month === 1) {
