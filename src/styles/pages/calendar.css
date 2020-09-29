@@ -32,7 +32,7 @@
     display: block;
     background: #fff;
     border: 2px solid var(--color-main);
-    box-shadow: 0 0 10px 0 #aaa;
+    box-shadow: var(--shadow);
     border-radius: 50%;
     color: var(--color-main);
     width: 2rem;
@@ -181,6 +181,8 @@
 
     & h1 {
       margin: 0 0.25em;
+      font-size: 1.75em;
+      line-height: 1.25em;
     }
   }
 

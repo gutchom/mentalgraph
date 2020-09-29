@@ -56,7 +56,7 @@ export const Header: React.FC<HeaderProps> = props => {
           <button className="user--icon" type="button" onClick={() => setIsOpen(!isOpen)}>
             {loading
               ? (<i className="fas fa-user"/>)
-              : (<img className="user--icon" src={(iconUrl as string)} alt="icon" loading="lazy"/>)
+              : (<img src={(iconUrl as string)} alt="icon" loading="lazy"/>)
             }
           </button>
 

@@ -11,6 +11,7 @@
   --color-orange: #f3a35d;
   --color-purple: #6739d8;
   --color-orange-dark: color(var(--color-orange) blackness(7.5%));
+  --shadow: 0 0 10px 4px rgba(64, 64, 64, 0.2);
   --radius: 12px;
   --radius-tiny: calc(var(--radius) * 0.25);
   --radius-small: calc(var(--radius) * 0.5);

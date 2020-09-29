@@ -17,19 +17,24 @@
 
   & h1 {
     margin: 0;
-    font-size: 1.5em;
+    font-size: 1.75em;
   }
 
-  & .user--icon {
+  & .user--icon,
+  & .user--icon img {
     border-radius: 50%;
     display: block;
-    height: 36px;
-    width: 36px;
+    height: 44px;
+    width: 44px;
     background: #fff;
     color: var(--color-main);
-    font-size: 18px;
+    font-size: 22px;
     text-align: center;
-    line-height: 36px;
+    line-height: 44px;
+  }
+
+  & .user--icon img {
+    border: 3px solid #fff;
   }
 
   & .user--login {
@@ -39,8 +44,8 @@
 
   & .user--icon--menu {
     position: absolute;
-    right: 10px;
-    top: 56px;
+    right: 14px;
+    top: 64px;
 
     & li {
       transform: scale(0);
@@ -57,13 +62,13 @@
       background: #fff;
       border: 3px solid var(--color-main);
       border-radius: 50%;
-      box-shadow: 0 0 10px 0 #aaa;
+      box-shadow: var(--shadow);
       font-size: calc(var(--header-button-size) / 2);
       line-height: var(--header-button-size);
       height: var(--header-button-size);
       text-align: center;
       width: var(--header-button-size);
-      margin-bottom: 6px;
+      margin-bottom: 10px;
 
       & .logout {
         color: var(--color-main);
