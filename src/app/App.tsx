@@ -12,6 +12,7 @@ import { Questionnaire } from 'app/components/pages/Questionnaire'
 import { Calendar } from 'app/components/pages/Calendar'
 import { Chart } from 'app/components/pages/Chart'
 import { Config } from 'app/components/pages/Config'
+import { About } from 'app/components/pages/About'
 import { BasicLayout } from 'app/components/layouts/BasicLayout'
 
 function PrivateRoute(props: RouteProps) {
@@ -28,6 +29,7 @@ export function App() {
         <PrivateRoute path="/calendar" children={<Calendar />} />
         <PrivateRoute path="/chart" children={<Chart />} />
         <PrivateRoute path="/config" children={<Config />} />
+        <PrivateRoute path="/about" children={<About />} />
       </Switch>
     </Router>
   );
