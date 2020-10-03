@@ -7,11 +7,9 @@ export const Landing: React.FC = () => {
   const [, loading] = useAuthState(firebase.auth())
 
   function handleLogin() {
-    console.log('tapped')
     const provider = new firebase.auth.TwitterAuthProvider()
     firebase.auth().signInWithRedirect(provider)
   }
-
 
   if (loading) {
     return (
@@ -47,6 +45,17 @@ export const Landing: React.FC = () => {
             <span>ツイッターでログイン</span>
           </button>
         </div>
+
+        <section className="release-note">
+          <h2>更新履歴</h2>
+          <dl>
+            <dt>バージョン1.0.1</dt>
+            <dd>曜日がズレていた問題を修正しました</dd>
+
+            <dt>バージョン1.0</dt>
+            <dd>一般公開しました</dd>
+          </dl>
+        </section>
       </article>
     </BasicLayout>
   )

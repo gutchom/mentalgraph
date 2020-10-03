@@ -33,7 +33,7 @@ export const Calendar: React.FC = () => {
   const [selected, setSelected] = useState(path ? `${path}-01` : now.toISODate())
   const [isEditOpen, setIsEditOpen] = useState(false)
   const firstDate = DateTime.local(year, month, 1)
-  const firstDateOfPage = firstDate.minus({ days: firstDate.weekday - 1} )
+  const firstDateOfPage = firstDate.minus({ days: firstDate.weekday} )
   const startDate = firstDateOfPage.toISODate()
   const endDate = firstDateOfPage.plus({ days: 41 }).toISODate()
   const [user] = useAuthState(firebase.auth())
